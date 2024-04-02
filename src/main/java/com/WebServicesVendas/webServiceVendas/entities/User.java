@@ -3,10 +3,22 @@ package com.WebServicesVendas.webServiceVendas.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+
+@Entity
+@Table(name="tb_user")
 public class User implements Serializable{//Serializable -> permite que os objetos trafeguem na
 	                                      //,arquivos etc.
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
 	private String email;
