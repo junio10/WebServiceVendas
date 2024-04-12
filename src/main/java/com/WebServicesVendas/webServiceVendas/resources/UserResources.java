@@ -30,4 +30,9 @@ public class UserResources {
 		return ResponseEntity.ok().body("ola");
 	}
 	
+	@GetMapping(value="/totalUsers")
+	public ResponseEntity<String> totalUsers(){
+		return ResponseEntity.ok().body(user.quantityUser());
+	}
+	
 }
