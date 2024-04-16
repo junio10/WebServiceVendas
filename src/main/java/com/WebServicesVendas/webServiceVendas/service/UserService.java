@@ -17,9 +17,8 @@ public class UserService implements IUserService {
 		return repository.findAll();
 	}
 	
-	public String quantityUser() {
-		Integer num = repository.findAll().size();
-		return num.toString();
+	public double quantityUser() {
+		return repository.count();
 	}
 
 }

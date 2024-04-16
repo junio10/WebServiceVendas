@@ -6,5 +6,5 @@ import com.WebServicesVendas.webServiceVendas.entities.User;
 
 public interface IUserService {
 	List<User> findAll();
-	String quantityUser();
+	double quantityUser();
 }

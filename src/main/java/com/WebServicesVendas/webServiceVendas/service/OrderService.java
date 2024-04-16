@@ -15,4 +15,8 @@ public class OrderService implements IOrderService {
     public List<Order> findAll(){
     	return repository.findAll();
     }
+    
+    public double quantityOrder() {
+    	return repository.count();
+    }
 }

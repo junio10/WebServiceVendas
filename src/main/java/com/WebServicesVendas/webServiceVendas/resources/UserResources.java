@@ -29,7 +29,7 @@ public class UserResources {
 	}
 	
 	@GetMapping(value="/totalUsers")
-	public ResponseEntity<String> totalUsers(){
+	public ResponseEntity<Double> totalUsers(){
 		return ResponseEntity.ok().body(user.quantityUser());
 	}
 	
