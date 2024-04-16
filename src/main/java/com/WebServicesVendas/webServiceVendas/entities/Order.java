@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.WebServicesVendas.webServiceVendas.entities.enums.OrderStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class Order implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private Instant moment;
+	private Integer orderStatus;
 	
 	@ManyToOne
 	@JoinColumn(name="client_id")
@@ -30,10 +33,11 @@ public class Order implements Serializable{
 		
 	}
 	
-	public Order(long id, Instant moment, User user) {
+	public Order(long id, Instant moment, User user, OrderStatus status) {
 		this.setId(id);
 		this.setMoment(moment);
 		this.setUser(user);
+		this.setOrderStatus(status);
 	}
 	
 	public long getId() {
@@ -60,6 +64,14 @@ public class Order implements Serializable{
 		this.user = user;
 	}
 	
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus.getOrderStatus();
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -76,5 +88,6 @@ public class Order implements Serializable{
 		Order other = (Order) obj;
 		return id == other.id;
 	}
+	
 
 }
