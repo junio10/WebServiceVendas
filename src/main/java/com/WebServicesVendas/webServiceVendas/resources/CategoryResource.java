@@ -24,10 +24,9 @@ public class CategoryResource {
     	return ResponseEntity.ok().body(category.findAll());
     }
     
-    @PostMapping(value="/create")
-    public ResponseEntity<Integer> create(@RequestBody Category cat){
-    	int isSave = category.create(cat);
-    	return ResponseEntity.ok().body(isSave);
+    @PostMapping(value="/criar")
+    public ResponseEntity<Category> create(@RequestBody Category cat){
+    	return ResponseEntity.ok(category.create(cat));
     }
     	    
 }

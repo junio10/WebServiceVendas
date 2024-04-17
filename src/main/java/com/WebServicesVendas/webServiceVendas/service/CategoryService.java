@@ -17,9 +17,8 @@ public class CategoryService implements ICategoryService {
     	  return category.findAll();
       }
       
-      public Integer create(Category c) {
-    	  	  Category c1 = category.save(c);
-    	  	  return (c1 != null ? 1 : 0);
+      public Category create(Category c) {
+    	  	  return category.save(c);
       }
       
 }
