@@ -1,7 +1,9 @@
 package com.WebServicesVendas.webServiceVendas.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +19,8 @@ public class Category implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
+	
+	private Set<Product> products = new HashSet<>();
 	
 	public Category() {
 		
@@ -59,6 +63,10 @@ public class Category implements Serializable {
 			return false;
 		Category other = (Category) obj;
 		return id == other.id;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
 	}
 	
 }
