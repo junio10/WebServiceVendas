@@ -5,14 +5,15 @@ import java.util.Objects;
 
 import com.WebServicesVendas.webServiceVendas.entities.pk.OrderItemPK;
 
-import jakarta.persistence.Embedded;
+
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 @Entity
 @Table(name="tb_order_item")
 public class OrderItem implements Serializable {
 		private static final long serialVersionUID = 1L;
-		@Embedded
+		@EmbeddedId
 		private OrderItemPK id;
 		private int quantity;
 		private Double price;
