@@ -5,4 +5,5 @@ import com.WebServicesVendas.webServiceVendas.entities.Category;
 public interface ICategoryService {
     List<Category> findAll();
     Category create(Category c);
+    Integer deleteByName(String name);
 }

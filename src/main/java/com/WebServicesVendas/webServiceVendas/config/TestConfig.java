@@ -70,6 +70,8 @@ public class TestConfig implements CommandLineRunner {
 		productRepository.saveAllAndFlush(Arrays.asList(p1,p2,p3,p4,p5));
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
 		
+		Category c =categoryRepository.findByName("Books");
+		System.out.println("category:" + c);
 	}
 
 

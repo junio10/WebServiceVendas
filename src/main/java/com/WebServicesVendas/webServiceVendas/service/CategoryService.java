@@ -21,4 +21,10 @@ public class CategoryService implements ICategoryService {
     	  	  return category.save(c);
       }
       
+      public Integer deleteByName(String name) {
+    	  Category c = category.findByName(name);
+    	  category.delete(c);
+    	  return 1;
+      }
+      
 }
