@@ -54,6 +54,12 @@ public class Order implements Serializable{
 		this.setOrderStatus(status);
 	}
 	
+	public Order(Instant moment, User user, OrderStatus status) {
+		this.setMoment(moment);
+		this.setUser(user);
+		this.setOrderStatus(status);
+	}
+	
 	public long getId() {
 		return id;
 	}
