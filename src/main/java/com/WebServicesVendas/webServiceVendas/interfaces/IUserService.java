@@ -7,4 +7,5 @@ import com.WebServicesVendas.webServiceVendas.entities.User;
 public interface IUserService {
 	List<User> findAll();
 	double quantityUser();
+	User getUserById(Long id);
 }
