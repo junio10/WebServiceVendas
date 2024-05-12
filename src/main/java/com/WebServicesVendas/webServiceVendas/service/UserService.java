@@ -1,6 +1,7 @@
 package com.WebServicesVendas.webServiceVendas.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,14 @@ public class UserService implements IUserService {
 	public double quantityUser() {
 		return repository.count();
 	}
-
+	
+	public User getUserById(Long id) {
+	    User u = repository.findByUser(id);
+		if(u != null) {
+			return u;
+		}
+		return null;
+		
+	}
+	
 }

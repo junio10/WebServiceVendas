@@ -5,4 +5,5 @@ import com.WebServicesVendas.webServiceVendas.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	User findByUser(Long id);
 }
