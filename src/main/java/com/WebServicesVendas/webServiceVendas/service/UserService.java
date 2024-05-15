@@ -23,9 +23,9 @@ public class UserService implements IUserService {
 	}
 	
 	public User getUserById(Long id) {
-	    User u = repository.findByUser(id);
-		if(u != null) {
-			return u;
+	    Optional<User> u = repository.findById(id);
+		if(!u.isEmpty()) {
+			return u.get();
 		}
 		return null;
 		
