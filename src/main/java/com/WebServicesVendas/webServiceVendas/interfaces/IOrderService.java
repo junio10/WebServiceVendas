@@ -7,4 +7,5 @@ public interface IOrderService {
 
 	List<Order> findAll();
 	double quantityOrder();
+	Order create(Long id);
 }

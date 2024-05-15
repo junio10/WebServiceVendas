@@ -2,6 +2,7 @@ package com.WebServicesVendas.webServiceVendas.service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,15 +28,18 @@ public class OrderService implements IOrderService {
     	return repository.count();
     }
     
-    public String create(Long i) {
+    public Order create(Long id) {
     	Instant momento = Instant.now();  
-    	User u= user.getUserById(i);
-    	if(u == null) {
-    		return "User is not found in database";
-    	}
+    	Optional<User> userOptional = Optional.ofNullable(user.getUserById(id));
+    	User user;
+        if(userOptional.isPresent()) {
+        	user = userOptional.get();
+        }else {
+        	return null;
+        }
 
-    	Order o = new Order(momento, u, OrderStatus.WAITING_PAYMENT);
+    	Order o = new Order(momento, user, OrderStatus.WAITING_PAYMENT);
     	repository.save(o);
-    	return "Order create";
+    	return o;
     }
 }
