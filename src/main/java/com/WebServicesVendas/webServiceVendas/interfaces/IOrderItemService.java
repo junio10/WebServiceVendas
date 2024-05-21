@@ -1,9 +1,11 @@
 package com.WebServicesVendas.webServiceVendas.interfaces;
 
-import java.util.List;
 
-import com.WebServicesVendas.webServiceVendas.entities.Product;
+import java.util.Map;
+
+import com.WebServicesVendas.webServiceVendas.entities.Order;
+
 
 public interface IOrderItemService {
-     Long create(Long idOrderService, List<Product> products);
+	int create(Order order, Map<String, Integer> products);
 }
