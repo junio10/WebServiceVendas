@@ -1,6 +1,7 @@
 package com.WebServicesVendas.webServiceVendas.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,15 @@ public class ProductService implements IProductService{
 	
 	public List<Product> findAll(){
 		return product.findAll();
+	}
+	
+	public Product findByName(String name){
+		Optional<Product> isProduct = product.findByName(name);
+		if(isProduct.isPresent()) {
+			return isProduct.get();
+		}
+		return null;
+		
 	}
 
 }
