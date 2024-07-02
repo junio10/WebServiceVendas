@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.WebServicesVendas.webServiceVendas.entities.Order;
 import com.WebServicesVendas.webServiceVendas.service.OrderItemService;
 import com.WebServicesVendas.webServiceVendas.service.OrderService;
+import com.WebServicesVendas.webServiceVendas.dto.OrderItemRequestDTO;
 
 @RestController
 @RequestMapping(value="/orders")
 public class OrderResources {
    @Autowired
    private OrderService order;
-   
+   @Autowired
    private OrderItemService orderItem;
    
    @GetMapping(value="/findAll")
@@ -33,10 +34,10 @@ public class OrderResources {
    }
    
    @PostMapping(value="/create")
-   public ResponseEntity<Integer> createOrder(@RequestBody Long id, @RequestBody Map<String, Integer> products){
-	   Order o = order.create(id);
+   public ResponseEntity<Integer> createOrder(@RequestBody OrderItemRequestDTO orderItemProducts){
+	   Order o = order.create(orderItemProducts.getIdCliente());
 	   if(o.getId() > 0) {
-		   int isCreate = orderItem.create(o, products);
+		   int isCreate = orderItem.create(o, orderItemProducts);
 		   if(isCreate == 1) {
 			   ResponseEntity.ok().body(1);
 		   }
