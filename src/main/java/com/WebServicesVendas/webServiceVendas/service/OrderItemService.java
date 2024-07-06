@@ -14,6 +14,7 @@ import com.WebServicesVendas.webServiceVendas.interfaces.IOrderItemService;
 import com.WebServicesVendas.webServiceVendas.repositories.OrderItemRepository;
 
 import com.WebServicesVendas.webServiceVendas.dto.OrderItemRequestDTO;
+import com.WebServicesVendas.webServiceVendas.dto.ProductOrderDTO;
 @Service
 public class OrderItemService implements IOrderItemService {
 
@@ -23,10 +24,10 @@ public class OrderItemService implements IOrderItemService {
 	private ProductService serviceProduct;
 	
 	public int create(Order order, OrderItemRequestDTO products) {
-		 for (Map.Entry<String, Integer> entry : products.getProducts().entrySet()) {
-			    Product p = serviceProduct.findByName(entry.getKey());
-			    if(p != null) {
-	            OrderItem o = new OrderItem(p, order, entry.getValue(), p.getPrice());
+		 for (ProductOrderDTO p : products.getProducts()) {
+			    Product p1 = serviceProduct.findByName(p.getNameProdcut());
+			    if(p1 != null) {			    
+	            OrderItem o = new OrderItem(p1, order, p.getQuantityOrder(), p1.getPrice());
 	            orderItemRepository.save(o);
 			    }
 	        }

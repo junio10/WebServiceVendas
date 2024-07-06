@@ -1,15 +1,17 @@
 package com.WebServicesVendas.webServiceVendas.dto;
 
+import java.util.List;
 import java.util.Map;
 
 public class OrderItemRequestDTO {
 	private long idCliente;
-	private Map<String, Integer> products;
+	private List<ProductOrderDTO> products;
+	
 	
 	public OrderItemRequestDTO() {
 		
 	}
-	public OrderItemRequestDTO(long id, Map<String, Integer> products) {
+	public OrderItemRequestDTO(long id, List<ProductOrderDTO> products) {
 		this.idCliente = id;
 		this.products = products;
 	}
@@ -19,10 +21,10 @@ public class OrderItemRequestDTO {
 	public void setIdCliente(long id) {
 		this.idCliente = id;
 	}
-	public Map<String, Integer> getProducts() {
+	public List<ProductOrderDTO> getProducts() {
 		return products;
 	}
-	public void setProducts(Map<String, Integer> products) {
+	public void setProducts(List<ProductOrderDTO> products) {
 		this.products = products;
 	}
 

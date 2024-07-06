@@ -39,7 +39,7 @@ public class OrderResources {
 	   if(o.getId() > 0) {
 		   int isCreate = orderItem.create(o, orderItemProducts);
 		   if(isCreate == 1) {
-			   ResponseEntity.ok().body(1);
+			   return ResponseEntity.ok().body(1);
 		   }
 	   }
 	   return ResponseEntity.ok().body(0);
