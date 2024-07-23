@@ -9,5 +9,5 @@ import com.WebServicesVendas.webServiceVendas.dto.OrderItemRequestDTO;
 
 
 public interface IOrderItemService {
-	int create(Order order, OrderItemRequestDTO products);
+	boolean create(Order order, OrderItemRequestDTO products);
 }

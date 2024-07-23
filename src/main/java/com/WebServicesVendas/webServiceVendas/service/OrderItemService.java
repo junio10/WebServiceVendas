@@ -2,7 +2,7 @@ package com.WebServicesVendas.webServiceVendas.service;
 
 
 
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,15 +23,28 @@ public class OrderItemService implements IOrderItemService {
 	@Autowired
 	private ProductService serviceProduct;
 	
-	public int create(Order order, OrderItemRequestDTO products) {
+	public boolean create(Order order, OrderItemRequestDTO products){
 		 for (ProductOrderDTO p : products.getProducts()) {
-			    Product p1 = serviceProduct.findByName(p.getNameProdcut());
-			    if(p1 != null) {			    
-	            OrderItem o = new OrderItem(p1, order, p.getQuantityOrder(), p1.getPrice());
-	            orderItemRepository.save(o);
-			    }
+			 Product p1;
+			 try {
+				 p1 = serviceProduct.findByName(p.getNameProdcut());
+			 }catch(Exception ex) {
+				 return false;
+			 }			 
+             if(p1 != null) {
+            	OrderItem o;
+            	try {
+            		o = new OrderItem(p1, order, p.getQuantityOrder(), p1.getPrice());
+     	            orderItemRepository.save(o);	
+            	}catch(Exception ex) {
+            		
+            		return false;
+            	}	           
+			   }else {
+				   return false;
+			   }
 	        }
-		return 1;
+		return true;
 	}
 
 	

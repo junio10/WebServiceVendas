@@ -1,8 +1,8 @@
 package com.WebServicesVendas.webServiceVendas.resources;
 
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,23 +25,41 @@ public class OrderResources {
    
    @GetMapping(value="/findAll")
    public ResponseEntity<List<Order>> findAll(){
-	   return ResponseEntity.ok().body(order.findAll());
+	   try {
+		   return ResponseEntity.ok().body(order.findAll());
+	   }catch(Exception ex) {
+		   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	   }
+	  
    }
 	
    @GetMapping(value="/quantity")
    public ResponseEntity<Double> quantityOrder(){
-	   return ResponseEntity.ok().body(order.quantityOrder());
+	   try {
+		   return ResponseEntity.ok().body(order.quantityOrder());
+	   }catch(Exception ex) {
+		   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	   }
+	   
    }
    
    @PostMapping(value="/create")
-   public ResponseEntity<Integer> createOrder(@RequestBody OrderItemRequestDTO orderItemProducts){
+   public ResponseEntity<HttpStatus> createOrder(@RequestBody OrderItemRequestDTO orderItemProducts){
+	   try {
 	   Order o = order.create(orderItemProducts.getIdCliente());
-	   if(o.getId() > 0) {
-		   int isCreate = orderItem.create(o, orderItemProducts);
-		   if(isCreate == 1) {
-			   return ResponseEntity.ok().body(1);
+	   
+		   if(o.getId() > 0) {
+			   boolean isCreate = orderItem.create(o, orderItemProducts);
+			   if(isCreate == true) {
+				   return ResponseEntity.ok().body(HttpStatus.CREATED);
+			   }
+			   return ResponseEntity.ok().body(HttpStatus.INTERNAL_SERVER_ERROR);
 		   }
+		   return ResponseEntity.ok().body(HttpStatus.BAD_REQUEST);
+	   }catch(Exception ex){
+		   return ResponseEntity.ok().body(HttpStatus.BAD_REQUEST);
 	   }
-	   return ResponseEntity.ok().body(0);
+	  
+	   
    }
 }
