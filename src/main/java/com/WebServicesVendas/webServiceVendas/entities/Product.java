@@ -16,6 +16,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name="tb_product")
@@ -34,8 +35,8 @@ public class Product implements Serializable {
 	joinColumns = @JoinColumn(name="product_id"),
 	inverseJoinColumns = @JoinColumn(name="category_id"))//define qual a outra chave estrangeira
 	private Set<Category> categories = new HashSet<>();
-	
-
+	@Transient
+    private Category category;
 	@OneToMany(mappedBy = "id.product")
 	private Set<OrderItem> items = new HashSet<>();//a diferencao entre o "set" e p list
 	                                                   //e que o set nao admitir repeticoes
@@ -114,6 +115,14 @@ public class Product implements Serializable {
 
 	public Set<Category> getCategories() {
 		return categories;
+	}
+	
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	public Category getCategory() {
+		return this.category;
 	}
 	
 }
