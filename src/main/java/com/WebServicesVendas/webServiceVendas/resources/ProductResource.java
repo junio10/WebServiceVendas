@@ -3,6 +3,7 @@ package com.WebServicesVendas.webServiceVendas.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,5 +20,14 @@ public class ProductResource {
 	@GetMapping(value="findAll")
 	public ResponseEntity<List<Product>> findAll(){
 		return ResponseEntity.ok().body(product.findAll());
+	}
+	
+	public ResponseEntity<HttpStatus>create(Product productNew){
+		try {
+			
+		}catch(Exception ex) {
+			
+		}
+		return null;
 	}
 }
