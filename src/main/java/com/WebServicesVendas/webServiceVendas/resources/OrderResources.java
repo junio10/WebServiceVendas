@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.WebServicesVendas.webServiceVendas.entities.Order;
 import com.WebServicesVendas.webServiceVendas.service.OrderItemService;
 import com.WebServicesVendas.webServiceVendas.service.OrderService;
+
+import jakarta.transaction.Transactional;
+
 import com.WebServicesVendas.webServiceVendas.dto.OrderItemRequestDTO;
 
 @RestController
@@ -44,6 +48,7 @@ public class OrderResources {
    }
    
    @PostMapping(value="/create")
+   @Transactional
    public ResponseEntity<HttpStatus> createOrder(@RequestBody OrderItemRequestDTO orderItemProducts){
 	   try {
 	   Order o = order.create(orderItemProducts.getIdCliente());
@@ -60,6 +65,16 @@ public class OrderResources {
 		   return ResponseEntity.ok().body(HttpStatus.BAD_REQUEST);
 	   }
 	  
+	   
+   }
+   
+   public ResponseEntity<Order> findAllOrderByUser(@PathVariable int idUser){
+	   
+	   try {
+		   
+	   }catch(Exception ex){
+		   return null;
+	   }
 	   
    }
 }

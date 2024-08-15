@@ -42,4 +42,14 @@ public class OrderService implements IOrderService {
     	repository.save(o);
     	return o;
     }
+    
+    public List<Order> findOrdersByUser(int id){
+    	List<Order> orders;
+    	try {
+    		orders = repository.findOrderByUser(id);
+    	}catch(Exception ex){
+    		return null;
+    	}
+    	return orders;
+    }
 }
