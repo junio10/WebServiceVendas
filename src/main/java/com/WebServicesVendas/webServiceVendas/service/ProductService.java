@@ -31,16 +31,19 @@ public class ProductService implements IProductService{
 		}
 		return null;	
 	}
-	
+	//criar um produto, se a categoria não existe, ele irá criar 
 	public HttpStatus create(Product productNew) {
 		try {
-			Category code;
+			Category categoryCode;
+			if(product.findByName(productNew.getName()).equals(null))
+				return HttpStatus.BAD_GATEWAY;
 			
-			code = (productNew.equals(null) ? 
-					category.save(productNew.getCategory()) :  
-				    category.findByName(productNew.getName()));
+			if (category.findByName(productNew.getName()).equals(null))
+				categoryCode = category.save(productNew.getCategory());
+			else
+				return HttpStatus.BAD_GATEWAY;
 			Product novo = null;
-			if(!code.equals(null))
+			if(!categoryCode.equals(null))
 				novo = product.save(productNew);
 			    HttpStatus isCode = (novo.equals(null) ? 
 			                         HttpStatus.INTERNAL_SERVER_ERROR 
