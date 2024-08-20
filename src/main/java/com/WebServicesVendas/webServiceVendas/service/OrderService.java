@@ -43,6 +43,17 @@ public class OrderService implements IOrderService {
     	return o;
     }
     
+    public Optional<Order> update(Order o) {
+    	Optional<Order> update= null;
+    	try {
+    		update = repository.findById(o.getId());
+    		repository.save(o);
+    	}catch(Exception ex) {
+    		return null;
+    	}
+    	return update;
+    }
+    
     public List<Order> findOrdersByUser(int id){
     	List<Order> orders;
     	try {

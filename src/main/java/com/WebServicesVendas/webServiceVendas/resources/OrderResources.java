@@ -2,6 +2,8 @@ package com.WebServicesVendas.webServiceVendas.resources;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.WebServicesVendas.webServiceVendas.entities.Order;
@@ -53,8 +56,9 @@ public class OrderResources {
 	   try {
 	   Order o = order.create(orderItemProducts.getIdCliente());
 	   
-		   if(o.getId() > 0) {
+		   if(o.getId() > 0) {			  
 			   boolean isCreate = orderItem.create(o, orderItemProducts);
+			   order.update(o);
 			   if(isCreate == true) {
 				   return ResponseEntity.ok().body(HttpStatus.CREATED);
 			   }
@@ -68,9 +72,10 @@ public class OrderResources {
 	   
    }
    
-   public ResponseEntity<Order> findAllOrderByUser(@PathVariable int idUser){
+   public ResponseEntity<Order> findAllOrderByUser(@PathVariable int idUser, @RequestParam int pagina, @RequestParam int quantidade){
 	   
 	   try {
+		   Pageable page = PageRequest.of(pagina, quantidade);
 		   
 	   }catch(Exception ex){
 		   return null;

@@ -12,6 +12,9 @@ import com.WebServicesVendas.webServiceVendas.entities.OrderItem;
 import com.WebServicesVendas.webServiceVendas.entities.Product;
 import com.WebServicesVendas.webServiceVendas.interfaces.IOrderItemService;
 import com.WebServicesVendas.webServiceVendas.repositories.OrderItemRepository;
+import com.WebServicesVendas.webServiceVendas.repositories.OrderRepository;
+
+import jakarta.transaction.Transactional;
 
 import com.WebServicesVendas.webServiceVendas.dto.OrderItemRequestDTO;
 import com.WebServicesVendas.webServiceVendas.dto.ProductOrderDTO;
@@ -22,30 +25,33 @@ public class OrderItemService implements IOrderItemService {
 	private OrderItemRepository orderItemRepository;
 	@Autowired
 	private ProductService serviceProduct;
+    @Autowired
+	private OrderService orderService;
 	
-	public boolean create(Order order, OrderItemRequestDTO products){
-		 for (ProductOrderDTO p : products.getProducts()) {
-			 Product p1;
-			 try {
-				 p1 = serviceProduct.findByName(p.getNameProdcut());
-			 }catch(Exception ex) {
-				 return false;
-			 }			 
-             if(p1 != null) {
-            	OrderItem o;
-            	try {
-            		o = new OrderItem(p1, order, p.getQuantityOrder(), p1.getPrice());
-     	            orderItemRepository.save(o);	
-            	}catch(Exception ex) {
-            		
-            		return false;
-            	}	           
-			   }else {
-				   return false;
-			   }
+	 @Transactional
+	    public boolean create(Order order, OrderItemRequestDTO products) {
+	        double priceOrder = 0.0;
+	        
+	        try {
+	            for (ProductOrderDTO p : products.getProducts()) {
+	                Product product = serviceProduct.findByName(p.getNameProdcut());
+	                
+	                OrderItem orderItem = new OrderItem(product, order, p.getQuantityOrder(), product.getPrice());
+	                orderItemRepository.save(orderItem);
+	                
+	                priceOrder += p.getQuantityOrder() * product.getPrice();
+	            }
+	            
+	            order.setPriceOrder(priceOrder);
+	            orderService.update(order);
+	            // Salvar o pedido aqui, se necessário: orderRepository.save(order);
+
+	            return true;
+	        } catch (Exception ex) {
+	           
+	            return false;
 	        }
-		return true;
-	}
+	    }
 
 	
 		
