@@ -32,6 +32,7 @@ public class Order implements Serializable{
 	private long id;
 	private Instant moment;
 	private Integer orderStatus;
+	private double priceOrder;
 	
 	@ManyToOne
 	@JoinColumn(name="client_id")
@@ -111,6 +112,14 @@ public class Order implements Serializable{
 			return false;
 		Order other = (Order) obj;
 		return id == other.id;
+	}
+
+	public double getPriceOrder() {
+		return priceOrder;
+	}
+
+	public void setPriceOrder(double priceOrder) {
+		this.priceOrder = priceOrder;
 	}
 	
 

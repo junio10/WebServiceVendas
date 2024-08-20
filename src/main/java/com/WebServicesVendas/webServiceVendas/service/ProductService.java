@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,11 @@ public class ProductService implements IProductService{
 	@Autowired
 	private CategoryRepository category;
 	
-	public List<Product> findAll(){
-		return product.findAll();
+	public Page<Product> findAll(Pageable page){
+		return product.findAll(page);
 	}
+	
+	
 	
 	public Product findByName(String name){
 		Optional<Product> isProduct = product.findByName(name);
