@@ -1,12 +1,12 @@
 package com.WebServicesVendas.webServiceVendas.interfaces;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.WebServicesVendas.webServiceVendas.entities.Product;
 
 public interface IProductService {
-	List<Pageable> findAll();
+	Page<Product> findAll(Pageable page);
 	Product findByName(String name);
 
 }

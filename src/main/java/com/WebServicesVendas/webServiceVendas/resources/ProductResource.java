@@ -35,7 +35,7 @@ public class ProductResource {
 		try {
 			code = product.create(productNew);
 		}catch(Exception ex) {
-			return ResponseEntity.ok().body(HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 		return ResponseEntity.ok().body(code);
 	}
