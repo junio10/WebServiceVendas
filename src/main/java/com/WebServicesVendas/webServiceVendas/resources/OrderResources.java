@@ -2,6 +2,7 @@ package com.WebServicesVendas.webServiceVendas.resources;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,7 @@ public class OrderResources {
 	   
 		   if(o.getId() > 0) {			  
 			   boolean isCreate = orderItem.create(o, orderItemProducts);
-			   order.update(o);
+			  
 			   if(isCreate == true) {
 				   return ResponseEntity.ok().body(HttpStatus.CREATED);
 			   }
@@ -72,14 +73,15 @@ public class OrderResources {
 	   
    }
    
-   public ResponseEntity<Order> findAllOrderByUser(@PathVariable int idUser, @RequestParam int pagina, @RequestParam int quantidade){
-	   
+   public ResponseEntity<Page<Order>> findAllOrderByUser(@PathVariable int idUser, @RequestParam int pagina, @RequestParam int quantidade){
+	   //fazendo paginacao da consulta de pedidos por id
+	   Page<Order> pageOrder = null;
 	   try {
 		   Pageable page = PageRequest.of(pagina, quantidade);
-		   
+		   pageOrder = order.findOrdersByUser(idUser, page);
 	   }catch(Exception ex){
 		   return null;
 	   }
-	   
+	   return ResponseEntity.status(HttpStatus.OK).body(pageOrder);
    }
 }
