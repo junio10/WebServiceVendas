@@ -63,11 +63,11 @@ public class OrderResources {
 			   if(isCreate == true) {
 				   return ResponseEntity.ok().body(HttpStatus.CREATED);
 			   }
-			   return ResponseEntity.ok().body(HttpStatus.INTERNAL_SERVER_ERROR);
+			   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		   }
-		   return ResponseEntity.ok().body(HttpStatus.BAD_REQUEST);
+		   return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	   }catch(Exception ex){
-		   return ResponseEntity.ok().body(HttpStatus.BAD_REQUEST);
+		   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	   }
 	  
 	   
@@ -80,7 +80,7 @@ public class OrderResources {
 		   Pageable page = PageRequest.of(pagina, quantidade);
 		   pageOrder = order.findOrdersByUser(idUser, page);
 	   }catch(Exception ex){
-		   return null;
+		   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	   }
 	   return ResponseEntity.status(HttpStatus.OK).body(pageOrder);
    }
