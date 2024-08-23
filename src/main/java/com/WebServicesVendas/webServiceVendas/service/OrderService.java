@@ -23,8 +23,13 @@ public class OrderService implements IOrderService {
     @Autowired
     private UserService user;
     
-    public List<Order> findAll(){
-    	return repository.findAll();
+    public Page<Order> findAll(Pageable page){    	  
+           try {
+        	   return repository.findAll(page);
+           }catch(Exception ex) {
+        	   return null;
+           }
+
     }
     
     public double quantityOrder() {

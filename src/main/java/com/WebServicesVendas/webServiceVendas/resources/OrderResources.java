@@ -32,9 +32,10 @@ public class OrderResources {
    private OrderItemService orderItem;
    
    @GetMapping(value="/findAll")
-   public ResponseEntity<List<Order>> findAll(){
+   public ResponseEntity<Page<Order>> findAll(@RequestParam int pagina, @RequestParam int size){
+	   Pageable page = PageRequest.of(size, pagina);
 	   try {
-		   return ResponseEntity.ok().body(order.findAll());
+		   return ResponseEntity.ok().body(order.findAll(page));
 	   }catch(Exception ex) {
 		   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	   }
